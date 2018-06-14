@@ -1,0 +1,49 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>AJAX Task</title>
+</head>
+<body>
+<h1> AJAX </h1>
+
+<div id="box" class="center">
+	<p>
+		Album's will load here.
+	</p>
+</div>
+<!--div id="box"></div> -->
+
+</body>
+
+<script>
+
+ var rq = new XMLHttpRequest();
+
+ rq.open('GET','https://rallycoding.herokuapp.com/api/music_albums',true);
+ rq.onload = function(){
+ 	var data=JSON.parse(this.response);
+
+var html = "";
+for (var i = 0; i < data.length; i++) {
+    html+="<div id='box' class='center'>";
+    html+="<img class='img' src='" + data[i].image + "'></img>";
+    html+="<p>Title - "+data[i].title+"</p>";
+    html+="<p>Artist - "+data[i].artist+"</p>";
+    html+="<button type='button' id='button' onclick='new()'>Buy</button>";
+    html+="<button type='button' id='button' onclick='hide()'>hide</button>";
+    html+="</div><br><hr>";
+
+}
+html+="";
+document.getElementById("box").innerHTML = html;
+}
+rq.send();
+
+
+function hide(i){
+	var x="box"+i;
+	document.getElementById('"'+x+'"').style.display="none";
+}
+</script>
+</html>
